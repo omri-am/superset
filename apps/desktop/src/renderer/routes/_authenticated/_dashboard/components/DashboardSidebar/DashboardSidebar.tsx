@@ -37,11 +37,14 @@ import { DashboardSidebarSectionRenameProvider } from "./components/DashboardSid
 import { DashboardSidebarSessionsSection } from "./components/DashboardSidebarSessionsSection";
 import { DashboardSidebarWorkspacesHeader } from "./components/DashboardSidebarWorkspacesHeader";
 import { useGettingStartedCard } from "./components/GettingStartedCard";
+import { OpenAllPullRequestsButton } from "./components/OpenAllPullRequestsButton";
+import { getPullRequestUrls } from "./components/OpenAllPullRequestsButton/getPullRequestUrls";
 import { useV2SetupScriptCard } from "./components/V2SetupScriptCard";
 import {
 	getBlockedDragProps,
 	useBlockedDragNotice,
 } from "./hooks/useBlockedDragNotice";
+import { useDashboardSidebarCloudWorkspaces } from "./hooks/useDashboardSidebarCloudWorkspaces";
 import { useDashboardSidebarData } from "./hooks/useDashboardSidebarData";
 import { useDashboardSidebarShortcuts } from "./hooks/useDashboardSidebarShortcuts";
 import { useMigrateLegacySidebarFolders } from "./hooks/useMigrateLegacySidebarFolders";
@@ -150,6 +153,16 @@ export function DashboardSidebar({
 		refreshWorkspacePullRequest,
 		toggleProjectCollapsed,
 	} = useDashboardSidebarData();
+	const cloudWorkspaces = useDashboardSidebarCloudWorkspaces();
+	const pullRequestUrls = getPullRequestUrls([
+		...pinnedWorkspaces,
+		...sessionWorkspaces,
+		...cloudWorkspaces.rows,
+		...cloudWorkspaces.pinnedRows,
+		...groups.flatMap((project) =>
+			getProjectChildrenWorkspaces(project.children),
+		),
+	]);
 	const {
 		deleteSection,
 		reorderProjects,
@@ -362,6 +375,10 @@ export function DashboardSidebar({
 							>
 								<div className="flex h-full flex-col border-r border-border bg-sidebar dark:bg-muted/35">
 									<DashboardSidebarHeader isCollapsed={isCollapsed} />
+									<OpenAllPullRequestsButton
+										urls={pullRequestUrls}
+										isCollapsed={isCollapsed}
+									/>
 
 									<OverflowFadeContainer
 										fadeEdges={["top", "bottom"]}
@@ -375,6 +392,7 @@ export function DashboardSidebar({
 											/>
 										)}
 										<DashboardSidebarCloudSection
+											{...cloudWorkspaces}
 											isCollapsed={isCollapsed}
 											onWorkspaceHover={refreshWorkspacePullRequest}
 										/>

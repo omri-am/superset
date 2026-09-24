@@ -10235,6 +10235,12 @@ msgstr "Open een pull request om reviewstatus, checks en opmerkingen te zien."
 msgid "Open actions menu"
 msgstr "Actiemenu openen"
 
+msgid "Open all PRs"
+msgstr "Alle PR’s openen"
+
+msgid "Open all PRs in browser"
+msgstr "Alle PR’s in de browser openen"
+
 msgid "Open an existing project folder"
 msgstr "Een bestaande projectmap openen"
 
