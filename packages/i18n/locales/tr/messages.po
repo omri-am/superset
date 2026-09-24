@@ -10235,9 +10235,6 @@ msgstr "İnceleme durumunu, kontrolleri ve yorumları görmek için bir pull req
 msgid "Open actions menu"
 msgstr "Eylemler menüsünü aç"
 
-msgid "Open all PRs"
-msgstr "Tüm PR’ları aç"
-
 msgid "Open all PRs in browser"
 msgstr "Tüm PR’ları tarayıcıda aç"
 

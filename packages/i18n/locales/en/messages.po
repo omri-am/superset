@@ -10235,9 +10235,6 @@ msgstr "Open a pull request to view review status, checks, and comments."
 msgid "Open actions menu"
 msgstr "Open actions menu"
 
-msgid "Open all PRs"
-msgstr "Open all PRs"
-
 msgid "Open all PRs in browser"
 msgstr "Open all PRs in browser"
 

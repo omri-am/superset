@@ -56,7 +56,7 @@ afterAll(async () => {
 
 describe("OpenAllPullRequestsButton", () => {
 	test("is disabled when no workspace has an active PR", () => {
-		render(<OpenAllPullRequestsButton urls={[]} isCollapsed={false} />);
+		render(<OpenAllPullRequestsButton urls={[]} />);
 		const button = within(document.body).getByRole("button", {
 			name: "Open all PRs in browser",
 		}) as HTMLButtonElement;
@@ -71,7 +71,7 @@ describe("OpenAllPullRequestsButton", () => {
 			finishOpening = resolve;
 		});
 		openUrl.mockImplementation(() => pending);
-		render(<OpenAllPullRequestsButton urls={urls} isCollapsed={false} />);
+		render(<OpenAllPullRequestsButton urls={urls} />);
 		const button = within(document.body).getByRole("button", {
 			name: "Open all PRs in browser",
 		}) as HTMLButtonElement;
@@ -94,7 +94,7 @@ describe("OpenAllPullRequestsButton", () => {
 				? Promise.reject(new Error("Browser unavailable"))
 				: Promise.resolve(),
 		);
-		render(<OpenAllPullRequestsButton urls={urls} isCollapsed={true} />);
+		render(<OpenAllPullRequestsButton urls={urls} />);
 		const button = within(document.body).getByRole("button", {
 			name: "Open all PRs in browser",
 		}) as HTMLButtonElement;

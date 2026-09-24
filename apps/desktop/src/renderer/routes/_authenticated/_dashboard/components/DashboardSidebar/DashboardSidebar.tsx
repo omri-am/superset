@@ -37,7 +37,6 @@ import { DashboardSidebarSectionRenameProvider } from "./components/DashboardSid
 import { DashboardSidebarSessionsSection } from "./components/DashboardSidebarSessionsSection";
 import { DashboardSidebarWorkspacesHeader } from "./components/DashboardSidebarWorkspacesHeader";
 import { useGettingStartedCard } from "./components/GettingStartedCard";
-import { OpenAllPullRequestsButton } from "./components/OpenAllPullRequestsButton";
 import { getPullRequestUrls } from "./components/OpenAllPullRequestsButton/getPullRequestUrls";
 import { useV2SetupScriptCard } from "./components/V2SetupScriptCard";
 import {
@@ -374,10 +373,9 @@ export function DashboardSidebar({
 								isChildDragDisabled={isChildDragDisabled}
 							>
 								<div className="flex h-full flex-col border-r border-border bg-sidebar dark:bg-muted/35">
-									<DashboardSidebarHeader isCollapsed={isCollapsed} />
-									<OpenAllPullRequestsButton
-										urls={pullRequestUrls}
+									<DashboardSidebarHeader
 										isCollapsed={isCollapsed}
+										pullRequestUrls={pullRequestUrls}
 									/>
 
 									<OverflowFadeContainer

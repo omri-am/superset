@@ -10235,9 +10235,6 @@ msgstr "Откройте пул-реквест, чтобы видеть стат
 msgid "Open actions menu"
 msgstr "Открыть меню действий"
 
-msgid "Open all PRs"
-msgstr "Открыть все PR"
-
 msgid "Open all PRs in browser"
 msgstr "Открыть все PR в браузере"
 
