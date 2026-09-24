@@ -235,6 +235,7 @@ export const DashboardSidebarExpandedWorkspaceRow = forwardRef<
 											workspaceStatus={workspaceStatus}
 											isCreatePending={isPending}
 											pullRequestState={pullRequest.state}
+											pullRequestChecksStatus={pullRequest.checksStatus}
 										/>
 									</button>
 								) : (
