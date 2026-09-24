@@ -85,13 +85,15 @@ export function RestartAllSessionsButton({
 						disabled={!hostUrl || isBusy}
 						onClick={() => hostUrl && inspect.mutate(hostUrl)}
 						className={cn(
-							"mx-2 mb-1 flex h-8 shrink-0 items-center gap-2 rounded-md px-2 text-sm text-muted-foreground hover:bg-fill-hover hover:text-foreground disabled:pointer-events-none disabled:opacity-50",
-							isCollapsed && "justify-center px-0",
+							"flex h-7 w-full shrink-0 items-center gap-2 rounded-md px-2 text-[13px] font-medium transition-colors text-muted-foreground hover:bg-fill-hover hover:text-foreground disabled:pointer-events-none disabled:opacity-50",
+							isCollapsed && "size-7 w-7 justify-center px-0",
 						)}
 					>
 						<LuRotateCw
+							strokeWidth={1.5}
 							className={cn(
-								"size-4 shrink-0",
+								"shrink-0",
+								isCollapsed ? "size-3.5" : "size-4",
 								isBusy && "animate-spin motion-reduce:animate-none",
 							)}
 						/>
