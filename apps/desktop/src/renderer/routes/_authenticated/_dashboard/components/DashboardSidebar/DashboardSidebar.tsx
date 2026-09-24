@@ -37,6 +37,7 @@ import { DashboardSidebarSectionRenameProvider } from "./components/DashboardSid
 import { DashboardSidebarSessionsSection } from "./components/DashboardSidebarSessionsSection";
 import { DashboardSidebarWorkspacesHeader } from "./components/DashboardSidebarWorkspacesHeader";
 import { useGettingStartedCard } from "./components/GettingStartedCard";
+import { RestartAllSessionsButton } from "./components/RestartAllSessionsButton";
 import { useV2SetupScriptCard } from "./components/V2SetupScriptCard";
 import {
 	getBlockedDragProps,
@@ -362,6 +363,10 @@ export function DashboardSidebar({
 							>
 								<div className="flex h-full flex-col border-r border-border bg-sidebar dark:bg-muted/35">
 									<DashboardSidebarHeader isCollapsed={isCollapsed} />
+									<RestartAllSessionsButton
+										hostUrl={activeHostUrl}
+										isCollapsed={isCollapsed}
+									/>
 
 									<OverflowFadeContainer
 										fadeEdges={["top", "bottom"]}
