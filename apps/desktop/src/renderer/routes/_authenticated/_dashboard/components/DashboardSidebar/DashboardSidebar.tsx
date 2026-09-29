@@ -154,12 +154,12 @@ export function DashboardSidebar({
 		refreshWorkspacePullRequest,
 		toggleProjectCollapsed,
 	} = useDashboardSidebarData();
-	const cloudWorkspaces = useDashboardSidebarCloudWorkspaces();
+	const sidebarCloudWorkspaces = useDashboardSidebarCloudWorkspaces();
 	const pullRequestUrls = getPullRequestUrls([
 		...pinnedWorkspaces,
 		...sessionWorkspaces,
-		...cloudWorkspaces.rows,
-		...cloudWorkspaces.pinnedRows,
+		...sidebarCloudWorkspaces.rows,
+		...sidebarCloudWorkspaces.pinnedRows,
 		...groups.flatMap((project) =>
 			getProjectChildrenWorkspaces(project.children),
 		),
@@ -414,7 +414,7 @@ export function DashboardSidebar({
 											/>
 										)}
 										<DashboardSidebarCloudSection
-											{...cloudWorkspaces}
+											{...sidebarCloudWorkspaces}
 											isCollapsed={isCollapsed}
 											onWorkspaceHover={refreshWorkspacePullRequest}
 										/>
