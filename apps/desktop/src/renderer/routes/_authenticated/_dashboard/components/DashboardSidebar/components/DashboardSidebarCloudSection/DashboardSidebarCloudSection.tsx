@@ -1,8 +1,9 @@
 import { Trans, useLingui } from "@lingui/react/macro";
+import { CLOUD_HOST_ID } from "@superset/shared/host-routing";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@superset/ui/tooltip";
 import { LuPlus } from "react-icons/lu";
 import { useOpenNewWorkspaceForHost } from "renderer/hooks/useOpenNewWorkspace";
-import { CLOUD_HOST_ID } from "renderer/routes/_authenticated/components/DashboardNewWorkspaceModal/components/DashboardNewWorkspaceForm/components/DevicePicker/DevicePicker";
+
 import { useSidebarSectionsCollapseStore } from "renderer/stores/sidebar-sections-collapse";
 import type { DashboardSidebarWorkspace } from "../../types";
 import { DashboardSidebarSectionHeader } from "../DashboardSidebarSectionHeader";
