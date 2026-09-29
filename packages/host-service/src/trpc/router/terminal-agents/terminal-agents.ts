@@ -344,8 +344,12 @@ export async function restartAgentSessions(
 	).filter(({ binding }) => requested.has(binding.terminalId));
 	const result = await restartCandidates(deps, candidates);
 	const restarted = new Set(result.restartedTerminalIds);
+	const eligible = new Set(candidates.map(({ binding }) => binding.terminalId));
 	return {
 		...result,
+		skippedTerminalIds: [...requested].filter(
+			(terminalId) => !eligible.has(terminalId),
+		),
 		failedTerminalIds: candidates
 			.map(({ binding }) => binding.terminalId)
 			.filter((terminalId) => !restarted.has(terminalId)),

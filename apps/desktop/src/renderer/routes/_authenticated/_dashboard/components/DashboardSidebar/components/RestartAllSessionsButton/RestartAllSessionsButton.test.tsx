@@ -17,8 +17,10 @@ const query = mock(async () => [
 const mutate = mock(async (_input: { terminalIds: string[] }) => ({
 	restartedTerminalIds: ["gemini"],
 	failedTerminalIds: [] as string[],
+	skippedTerminalIds: [] as string[],
 }));
 const success = mock((_message: string) => {});
+const warning = mock((_message: string) => {});
 const error = mock((_message: string) => {});
 mock.module("renderer/lib/host-service-client", () => ({
 	...originalClient,
@@ -30,7 +32,7 @@ mock.module("renderer/lib/host-service-client", () => ({
 	}),
 }));
 mock.module("@superset/ui/sonner", () => ({
-	toast: { success, error, info: mock(() => {}) },
+	toast: { success, error, warning, info: mock(() => {}) },
 }));
 const { act, cleanup, fireEvent, render, within, waitFor } = await import(
 	"@testing-library/react"
@@ -43,9 +45,11 @@ beforeEach(() => {
 	mutate.mockClear();
 	success.mockClear();
 	error.mockClear();
+	warning.mockClear();
 	mutate.mockImplementation(async () => ({
 		restartedTerminalIds: ["gemini"],
 		failedTerminalIds: [],
+		skippedTerminalIds: [],
 	}));
 });
 afterEach(() => {
@@ -97,6 +101,7 @@ test("reports partial failure instead of announcing complete success", async () 
 	mutate.mockImplementation(async () => ({
 		restartedTerminalIds: [],
 		failedTerminalIds: ["gemini"],
+		skippedTerminalIds: [],
 	}));
 	show();
 	const dialog = await openConfirmation();
@@ -135,6 +140,7 @@ test("disables repeated requests while a restart is pending", async () => {
 	let resolveRestart = (_value: {
 		restartedTerminalIds: string[];
 		failedTerminalIds: string[];
+		skippedTerminalIds: string[];
 	}) => {};
 	mutate.mockImplementation(
 		() =>
@@ -161,6 +167,32 @@ test("disables repeated requests while a restart is pending", async () => {
 	);
 	expect(mutate).toHaveBeenCalledTimes(1);
 	await act(async () =>
-		resolveRestart({ restartedTerminalIds: ["gemini"], failedTerminalIds: [] }),
+		resolveRestart({
+			restartedTerminalIds: ["gemini"],
+			failedTerminalIds: [],
+			skippedTerminalIds: [],
+		}),
 	);
+});
+
+test("reports sessions skipped after confirmation without announcing success", async () => {
+	mutate.mockImplementation(async () => ({
+		restartedTerminalIds: [],
+		failedTerminalIds: [],
+		skippedTerminalIds: ["gemini"],
+	}));
+	show();
+	const dialog = await openConfirmation();
+	await act(async () =>
+		fireEvent.click(within(dialog).getByRole("button", { name: "Restart" })),
+	);
+	await waitFor(() => expect(warning).toHaveBeenCalledTimes(1));
+	expect(success).not.toHaveBeenCalled();
+});
+
+test("uses singular wording for a single confirmed session", async () => {
+	show();
+	const dialog = await openConfirmation();
+	expect(dialog.textContent).toContain("Restart 1 resumable agent session in");
+	expect(dialog.textContent).not.toContain("1 resumable agent sessions");
 });

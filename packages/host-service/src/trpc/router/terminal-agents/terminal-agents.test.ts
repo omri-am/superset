@@ -678,6 +678,7 @@ describe("restartAgentSessions", () => {
 		expect(await restartAgentSessions(deps, ["gemini"])).toEqual({
 			restartedTerminalIds: ["gemini"],
 			failedTerminalIds: [],
+			skippedTerminalIds: [],
 		});
 		expect(runCalls[0]).toMatchObject({
 			agent: "gemini-config",
@@ -729,7 +730,11 @@ describe("restartAgentSessions", () => {
 		expect(listRestartCandidates(db, deps.terminalAgentStore)).toEqual([]);
 		expect(
 			await restartAgentSessions(deps, ["unsupported", "unknown", "no-id"]),
-		).toEqual({ restartedTerminalIds: [], failedTerminalIds: [] });
+		).toEqual({
+			restartedTerminalIds: [],
+			failedTerminalIds: [],
+			skippedTerminalIds: ["unsupported", "unknown", "no-id"],
+		});
 		expect(disposedTerminals).toEqual([]);
 	});
 
@@ -748,7 +753,11 @@ describe("restartAgentSessions", () => {
 				"closed",
 				"missing",
 			]),
-		).toEqual({ restartedTerminalIds: ["confirmed"], failedTerminalIds: [] });
+		).toEqual({
+			restartedTerminalIds: ["confirmed"],
+			failedTerminalIds: [],
+			skippedTerminalIds: ["closed", "missing"],
+		});
 		expect(runCalls).toHaveLength(1);
 		expect(deps.terminalAgentStore.list().map((row) => row.terminalId)).toEqual(
 			["new-session"],
@@ -775,6 +784,7 @@ describe("restartAgentSessions", () => {
 		).toEqual({
 			restartedTerminalIds: ["ok"],
 			failedTerminalIds: ["kill-fails", "launch-fails"],
+			skippedTerminalIds: [],
 		});
 		expect(runCalls.map((call) => call.resumeSessionId)).toEqual([
 			"sess-launch-fails",

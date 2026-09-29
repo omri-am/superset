@@ -1,4 +1,4 @@
-import { Trans, useLingui } from "@lingui/react/macro";
+import { Plural, Trans, useLingui } from "@lingui/react/macro";
 import { errorMessage } from "@superset/i18n/errors";
 import { formatNumber } from "@superset/i18n/format";
 import {
@@ -62,9 +62,16 @@ export function RestartAllSessionsButton({
 		onSuccess: (result) => {
 			const restarted = formatNumber(result.restartedTerminalIds.length);
 			const failed = formatNumber(result.failedTerminalIds.length);
+			const skipped = formatNumber(result.skippedTerminalIds.length);
 			if (result.failedTerminalIds.length > 0) {
 				toast.error(
-					t({ message: `Restarted: ${restarted}. Failed: ${failed}.` }),
+					t({
+						message: `Restarted: ${restarted}. Failed: ${failed}. Skipped: ${skipped}.`,
+					}),
+				);
+			} else if (result.skippedTerminalIds.length > 0) {
+				toast.warning(
+					t({ message: `Restarted: ${restarted}. Skipped: ${skipped}.` }),
 				);
 			} else {
 				toast.success(t({ message: `Sessions restarted: ${restarted}.` }));
@@ -72,7 +79,7 @@ export function RestartAllSessionsButton({
 		},
 		onError: (error) => toast.error(errorMessage(error)),
 	});
-	const count = formatNumber(request?.terminalIds.length ?? 0);
+	const count = request?.terminalIds.length ?? 0;
 	const isBusy = inspect.isPending || restart.isPending;
 
 	return (
@@ -116,11 +123,11 @@ export function RestartAllSessionsButton({
 							<Trans>Restart all sessions</Trans>
 						</AlertDialogTitle>
 						<AlertDialogDescription>
-							<Trans>
-								Restart {count} resumable agent sessions in this organization on
-								this computer? Saved conversations will resume. Current work
-								will be interrupted.
-							</Trans>
+							<Plural
+								value={count}
+								one="Restart # resumable agent session in this organization on this computer? Saved conversations will resume. Current work will be interrupted."
+								other="Restart # resumable agent sessions in this organization on this computer? Saved conversations will resume. Current work will be interrupted."
+							/>
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>

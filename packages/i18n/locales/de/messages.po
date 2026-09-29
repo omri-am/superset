@@ -629,6 +629,9 @@ msgstr "{count, plural, one {# Worktree importieren} other {# Worktrees importie
 msgid "{count, plural, one {Project opened} other {# projects opened}}"
 msgstr "{count, plural, one {Projekt geöffnet} other {# Projekte geöffnet}}"
 
+msgid "{count, plural, one {Restart # resumable agent session in this organization on this computer? Saved conversations will resume. Current work will be interrupted.} other {Restart # resumable agent sessions in this organization on this computer? Saved conversations will resume. Current work will be interrupted.}}"
+msgstr "{count, plural, one {# fortsetzbare Agentensitzung dieser Organisation auf diesem Computer neu starten? Gespeicherte Unterhaltungen werden fortgesetzt. Laufende Arbeiten werden unterbrochen.} other {# fortsetzbare Agentensitzungen dieser Organisation auf diesem Computer neu starten? Gespeicherte Unterhaltungen werden fortgesetzt. Laufende Arbeiten werden unterbrochen.}}"
+
 msgid "{count, plural, one {Used # source} other {Used # sources}}"
 msgstr "{count, plural, one {# Quelle genutzt} other {# Quellen genutzt}}"
 
@@ -12322,9 +12325,6 @@ msgstr "Response"
 msgid "Restart"
 msgstr "Neu starten"
 
-msgid "Restart {count} resumable agent sessions in this organization on this computer? Saved conversations will resume. Current work will be interrupted."
-msgstr "{count} fortsetzbare Agentensitzungen dieser Organisation auf diesem Computer neu starten? Gespeicherte Unterhaltungen werden fortgesetzt. Laufende Arbeiten werden unterbrochen."
-
 msgid "Restart all sessions"
 msgstr "Alle Sitzungen neu starten"
 
@@ -12367,8 +12367,11 @@ msgstr "{restartedOrgCount} Host-Dienste neu gestartet"
 msgid "Restarted 1 host service"
 msgstr "1 Host-Dienst neu gestartet"
 
-msgid "Restarted: {restarted}. Failed: {failed}."
-msgstr "Neu gestartet: {restarted}. Fehlgeschlagen: {failed}."
+msgid "Restarted: {restarted}. Failed: {failed}. Skipped: {skipped}."
+msgstr "Neu gestartet: {restarted}. Fehlgeschlagen: {failed}. Übersprungen: {skipped}."
+
+msgid "Restarted: {restarted}. Skipped: {skipped}."
+msgstr "Neu gestartet: {restarted}. Übersprungen: {skipped}."
 
 msgid "Restarting"
 msgstr "Wird neu gestartet"
